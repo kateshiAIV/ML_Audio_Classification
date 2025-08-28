@@ -36,11 +36,22 @@ print("Размер выборки:", images.shape, labels.shape)
 # - оценка точности
 # ==============================
 
-# Пример визуализации
-plt.figure(figsize=(10, 5))
-for i in range(7):
+import random
+
+plt.figure(figsize=(15, 5))
+
+for i, cls in enumerate(classes):
+    # индексы всех картинок данной категории
+    cls_indices = np.where(labels == i)[0]
+    # выбираем случайный индекс
+    idx = random.choice(cls_indices)
+    # берём картинку
+    img = images[idx]
+
     plt.subplot(1, 7, i+1)
-    plt.imshow(cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB))  # переводим только для отображения
-    plt.title(classes[labels[i]])
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    plt.title(cls)
     plt.axis("off")
+
 plt.show()
+
